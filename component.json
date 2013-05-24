@@ -5,6 +5,7 @@
   "scripts": [],
   "dependencies": {
     "components/polymer": "*",
-    "bergie/noflo": "*"
+    "bergie/noflo": "*",
+    "bergie/noflo-dom": "*"
   }
 }
