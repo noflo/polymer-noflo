@@ -1,0 +1,302 @@
+{
+  "properties": {
+    "name": "Movable image"
+  },
+  "exports": [],
+  "processes": {
+    "Image": {
+      "component": "dom/GetElement"
+    },
+    "SendElement": {
+      "component": "Split"
+    },
+    "AnchorX": {
+      "component": "Split"
+    },
+    "AnchorY": {
+      "component": "Split"
+    },
+    "Touch": {
+      "component": "dom/ListenTouch"
+    },
+    "DragX": {
+      "component": "Gate"
+    },
+    "DragY": {
+      "component": "Gate"
+    },
+    "NewX": {
+      "component": "Kick"
+    },
+    "SpringX": {
+      "component": "Spring"
+    },
+    "NewY": {
+      "component": "Kick"
+    },
+    "SpringY": {
+      "component": "Spring"
+    },
+    "PosX": {
+      "component": "Merge"
+    },
+    "PosY": {
+      "component": "Merge"
+    },
+    "Move": {
+      "component": "dom/MoveElement"
+    }
+  },
+  "connections": [
+  {
+    "src": {
+      "process": "Image",
+      "port": "element"
+    },
+    "tgt": {
+      "process": "SendElement",
+      "port": "in"
+    }
+  },
+  {
+    "src": {
+      "process": "SendElement",
+      "port": "out"
+    },
+    "tgt": {
+      "process": "Touch",
+      "port": "element"
+    }
+  },
+  {
+    "src": {
+      "process": "SendElement",
+      "port": "out"
+    },
+    "tgt": {
+      "process": "Move",
+      "port": "element"
+    }
+  },
+  {
+    "src": {
+      "process": "AnchorX",
+      "port": "out"
+    },
+    "tgt": {
+      "process": "PosX",
+      "port": "in"
+    }
+  },
+  {
+    "src": {
+      "process": "PosX",
+      "port": "out"
+    },
+    "tgt": {
+      "process": "Move",
+      "port": "x"
+    }
+  },
+  {
+    "src": {
+      "process": "AnchorY",
+      "port": "out"
+    },
+    "tgt": {
+      "process": "PosY",
+      "port": "in"
+    }
+  },
+  {
+    "src": {
+      "process": "PosY",
+      "port": "out"
+    },
+    "tgt": {
+      "process": "Move",
+      "port": "y"
+    }
+  },
+  {
+    "src": {
+      "process": "Touch",
+      "port": "start"
+    },
+    "tgt": {
+      "process": "DragX",
+      "port": "open"
+    }
+  },
+  {
+    "src": {
+      "process": "Touch",
+      "port": "moveX"
+    },
+    "tgt": {
+      "process": "DragX",
+      "port": "in"
+    }
+  },
+  {
+    "src": {
+      "process": "Touch",
+      "port": "end"
+    },
+    "tgt": {
+      "process": "DragX",
+      "port": "close"
+    }
+  },
+  {
+    "src": {
+      "process": "DragX",
+      "port": "out"
+    },
+    "tgt": {
+      "process": "PosX",
+      "port": "in"
+    }
+  },
+  {
+    "src": {
+      "process": "AnchorX",
+      "port": "out"
+    },
+    "tgt": {
+      "process": "SpringX",
+      "port": "anchor"
+    }
+  },
+  {
+    "src": {
+      "process": "Touch",
+      "port": "moveX"
+    },
+    "tgt": {
+      "process": "NewX",
+      "port": "data"
+    }
+  },
+  {
+    "src": {
+      "process": "Touch",
+      "port": "end"
+    },
+    "tgt": {
+      "process": "NewX",
+      "port": "in"
+    }
+  },
+  {
+    "src": {
+      "process": "NewX",
+      "port": "out"
+    },
+    "tgt": {
+      "process": "SpringX",
+      "port": "in"
+    }
+  },
+  {
+    "src": {
+      "process": "SpringX",
+      "port": "out"
+    },
+    "tgt": {
+      "process": "PosX",
+      "port": "in"
+    }
+  },
+  {
+    "src": {
+      "process": "Touch",
+      "port": "start"
+    },
+    "tgt": {
+      "process": "DragY",
+      "port": "open"
+    }
+  },
+  {
+    "src": {
+      "process": "Touch",
+      "port": "moveY"
+    },
+    "tgt": {
+      "process": "DragY",
+      "port": "in"
+    }
+  },
+  {
+    "src": {
+      "process": "Touch",
+      "port": "end"
+    },
+    "tgt": {
+      "process": "DragY",
+      "port": "close"
+    }
+  },
+  {
+    "src": {
+      "process": "DragY",
+      "port": "out"
+    },
+    "tgt": {
+      "process": "PosY",
+      "port": "in"
+    }
+  },
+  {
+    "src": {
+      "process": "AnchorY",
+      "port": "out"
+    },
+    "tgt": {
+      "process": "SpringY",
+      "port": "anchor"
+    }
+  },
+  {
+    "src": {
+      "process": "Touch",
+      "port": "moveY"
+    },
+    "tgt": {
+      "process": "NewY",
+      "port": "data"
+    }
+  },
+  {
+    "src": {
+      "process": "Touch",
+      "port": "end"
+    },
+    "tgt": {
+      "process": "NewY",
+      "port": "in"
+    }
+  },
+  {
+    "src": {
+      "process": "NewY",
+      "port": "out"
+    },
+    "tgt": {
+      "process": "SpringY",
+      "port": "in"
+    }
+  },
+  {
+    "src": {
+      "process": "SpringY",
+      "port": "out"
+    },
+    "tgt": {
+      "process": "PosY",
+      "port": "in"
+    }
+  }
+  ]
+}

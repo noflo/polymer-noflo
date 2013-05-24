@@ -1,0 +1,50 @@
+<element name="noflo-graph" attributes="src root">
+  <script>
+    var noflo = require('/bergie-noflo');
+    var loadGraph = function (oldSrc) {
+      var element = this;
+      var src = element.getAttribute('src');
+      var request = new XMLHttpRequest();
+      request.open('GET', src, true);
+      request.onload = function () {
+        if (request.readyState != 4 || request.status != 200) {
+          return;
+        }
+        runGraph(JSON.parse(request.responseText), element);
+      };
+      request.send();
+    };
+    var runGraph = function (graphData, element) {
+      noflo.graph.loadJSON(graphData, function (graph) {
+        graph.baseDir = element.getAttribute('root');
+        registerInitials(graph, element);
+        noflo.createNetwork(graph, function (network) {
+          console.log("Network created");
+        });
+      });
+    };
+    var registerInitials = function (graph, element) {
+      for (var i=0; i < element.attributes.length; i++) {
+        if (element.attributes[i].name.indexOf('-') === -1) {
+          continue;
+        }
+        registerInitial(graph, element.attributes[i].name, element.attributes[i].value);
+      }
+    };
+    var registerInitial = function (graph, name, value) {
+      var parts = name.split('-');
+      // Match to a node in graph
+      for (var i=0; i < graph.nodes.length; i++) {
+        var node = graph.nodes[i];
+        if (node.id.toLowerCase() == parts[0]) {
+          graph.addInitial(value, node.id, parts[1]);
+        }
+      }
+    };
+
+    Polymer.register(this, {
+      src: '',
+      srcChanged: loadGraph
+    });
+  </script>
+</element>
