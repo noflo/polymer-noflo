@@ -1,0 +1,9 @@
+{
+  "name": "polymer-noflo",
+  "description": "Exposing NoFlo graphs as Polymer Web Components",
+  "version": "0.0.1",
+  "dependencies": {
+    "components/polymer": "*",
+    "bergie/noflo": "*"
+  }
+}
