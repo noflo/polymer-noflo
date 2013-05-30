@@ -2,14 +2,51 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <script src="./browser/polymer-noflo.js"></script>
+    <script src="./browser/polymer-noflo.min.js"></script>
     <script>
       require('components-polymer');
     </script>
-    <link rel="import" href="noflo-graph.html">
+    <link rel="import" href="noflo-fbp.html">
   </head>
   <body>
-    <noflo-graph src="touch-demo.json" root="/bergie-noflo-dom" image-selector="#movable" anchorx-in="250" anchory-in="150">
-    <img id="movable" src="http://bergie.iki.fi/style/img/mdpi/bergie.jpg">
+    <noflo-fbp root="/bergie-noflo-dom">
+      # Selector for the image
+      '.movable' -> SELECTOR Image(dom/GetElement)
+      # Initial position of the image
+      '250' -> IN AnchorX(Split)
+      '150' -> IN AnchorY(Split)
+
+      # Pass the element to components that need it
+      Image ELEMENT -> IN SendElement(Split)
+      SendElement OUT -> ELEMENT Touch(dom/ListenTouch)
+      SendElement OUT -> ELEMENT Move(dom/MoveElement)
+
+      # Initial horizontal positioning
+      AnchorX OUT -> IN PosX(Merge) OUT -> X Move
+
+      #Initial vertical positioning
+      AnchorY OUT -> IN PosY(Merge) OUT -> Y Move
+
+      # Horizontal dragging
+      Touch START -> OPEN DragX(Gate)
+      Touch END -> CLOSE DragX
+      Touch MOVEX -> IN DragX OUT -> IN PosX
+
+      # Horizontal spring return when drag ends
+      AnchorX OUT -> ANCHOR SpringX(Spring)
+      Touch MOVEX -> DATA NewX(Kick) OUT -> IN SpringX OUT -> IN PosX
+      Touch END -> IN NewX
+
+      # Vertical dragging
+      Touch START -> OPEN DragY(Gate)
+      Touch END -> CLOSE DragY
+      Touch MOVEY -> IN DragY OUT -> IN PosY
+
+      # Vertical spring return when drag ends
+      AnchorY OUT -> ANCHOR SpringY(Spring)
+      Touch MOVEY -> DATA NewY(Kick) OUT -> IN SpringY OUT -> IN PosY
+Touch END -> IN NewY
+    </noflo-fbp>
+    <img class="movable" src="http://bergie.iki.fi/style/img/mdpi/bergie.jpg">
   </body>
 </html>
