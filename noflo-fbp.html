@@ -1,0 +1,21 @@
+<element name="noflo-fbp" attributes="root">
+  <script>
+    var noflo = require('/bergie-noflo');
+    var runGraph = function (graphData, element) {
+      noflo.graph.loadFBP(graphData, function (graph) {
+        graph.baseDir = element.getAttribute('root');
+        noflo.createNetwork(graph, function (network) {
+        });
+      });
+    };
+    Polymer.register(this, {
+      ready: function () {
+        var fbpSrc = this.textContent.replace(/^ +/gm, '');
+        // Hide the FBP content
+        this.style.display = 'none';
+        // Run it
+        runGraph(fbpSrc, this);
+      }
+    });
+  </script>
+</element>
