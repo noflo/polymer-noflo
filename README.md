@@ -49,7 +49,7 @@ The you can use it as a HTML tag:
 
     <noflo-fbp root="/bergie-noflo">
       'Hello, world!' -> IN Display(Output)
-    </noflo>
+    </noflo-fbp>
 
 Attributes:
 
