@@ -20,7 +20,7 @@
   "devDependencies": {
     "grunt": "~1.0.1",
     "grunt-component-build": "~0.5.3",
-    "grunt-contrib-uglify": "~2.2.0",
+    "grunt-contrib-uglify": "~2.3.0",
     "grunt-contrib-watch": "~1.0.0",
     "component-json": "git://github.com/CamShaft/component-json.git",
     "grunt-combine": "~0.8.3",
